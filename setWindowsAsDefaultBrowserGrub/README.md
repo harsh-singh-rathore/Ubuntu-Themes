@@ -2,6 +2,7 @@
 
 
 In sudo mode open the file from vim or nano 
+    
     1) "sudo nano etc/default/grub" or "sudo vim etc/default/grub"
 
     2) change "GRUB_DEFAULT=0" to "GRUB_DEFAULT=saved", then save and exit
