@@ -15,12 +15,11 @@
 "-----------------------------------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-" Plug 'preservim/nerdtree'               " Shows project structure
+Plug 'preservim/nerdtree'               " Shows project structure
 Plug 'tpope/vim-fugitive'               " Git integration
 Plug 'mbbill/undotree'                  " Gives a file changes tree
 Plug 'itchyny/lightline.vim'            " Status line plugin
 
-Plug 'pangloss/vim-javascript'
 Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'jiangmiao/auto-pairs'
@@ -30,6 +29,7 @@ Plug 'Valloric/YouCompleteMe'
 " Plug 'dense-analysis/ale'
 Plug 'dracula/vim'
 
+" Plugin to have snippets for different languages
 call plug#end()
 
 " To enable YouCompleteMe go to .vim/plugged/youcompleteme 
@@ -96,6 +96,7 @@ let g:airline#extensions#ale#enabled = 1
 set laststatus=2                        " Enables statusline
 set noshowmode                          " Disables mode show in command line
 let g:lightline = {
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -111,6 +112,9 @@ let g:lightline = {
 
 let mapleader = " "                     " Sets <leader> key
 
+" => Open terminal inside Vim
+map <Leader>tt :bel vert term<CR>
+
 " Normal mode key to jjj so no need to go to the Esc
 :imap jjj <Esc>
 " Jump between splits with Ctrl+(hjkl)
@@ -119,19 +123,30 @@ nnoremap <C-j> <C-w>j<CR>
 nnoremap <C-k> <C-w>k<CR>
 nnoremap <C-l> <C-w>l<CR>
 
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
+
+" Change 2 split windows from vert to horiz or horiz to vert
+" For vert to horiz leader+t+k
+" For horiz to vert leader+t+h
+map <Leader>th <C-w>t<C-w>H
+map <Leader>tk <C-w>t<C-w>K
+
 " Jump between tabs with <leader>+(np)
 nnoremap <leader>n :tabn<CR> 
 nnoremap <leader>p :tabp<CR>
 
 " Toggles NERDTree with <leader>+t (adding vertical resize here)
-nnoremap <leader>t :NERDTreeToggle .<CR> :vertical res -10<CR>
+nnoremap <C-f> :NERDTreeToggle .<CR> :vertical res -10<CR>
 
-" Toggles Undotree with Ctrl+z
+" Toggles Undotree with Ctrl+Z
 nnoremap <C-z> :UndotreeToggle<CR>
 
 " Open vertical split with Ctrl+c
 nnoremap <C-c> <C-w>v<CR>
-
 " Close current buffer with Ctrl+x
 nnoremap <C-x> :q<CR>
 
@@ -141,4 +156,3 @@ imap <C-s> <Esc>:retab<CR>:w<CR>
 
 " Removes all highlights with <esc><esc>
 nnoremap <esc><esc> :let @/=""<CR>
-
