@@ -1,6 +1,6 @@
 "#############################################################################
 "
-" My rather basic
+" My rather basic 
 " __      ___                    
 " \ \    / (_)                   
 "  \ \  / / _ _ __ ___  _ __ ___ 
@@ -16,18 +16,20 @@
 
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'               " Shows project structure
+
 Plug 'tpope/vim-fugitive'               " Git integration
+
 Plug 'mbbill/undotree'                  " Gives a file changes tree
+
 Plug 'itchyny/lightline.vim'            " Status line plugin
 
-Plug 'HerringtonDarkholme/yats.vim'
+Plug 'jiangmiao/auto-pairs'             " Complete the pairs of parentheis, brackets etc;
 
-Plug 'jiangmiao/auto-pairs'
-Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'          " Syntax hilighting and checking
 
-Plug 'Valloric/YouCompleteMe'
-" Plug 'dense-analysis/ale'
-Plug 'dracula/vim'
+Plug 'Valloric/YouCompleteMe'           " YouCompleteMe to auto-complete for different languages
+
+Plug 'dracula/vim'                      " Dracula theme for texts and background 
 
 " Plugin to have snippets for different languages
 call plug#end()
@@ -41,8 +43,6 @@ call plug#end()
 
 syntax on                               " For syntax highlighting
 
-" Copy the monokai.vim file from https://github.com/crusoexia/vim-monokai
-" into ~/.vim/colors/monokai.vim
 colorscheme dracula                     " Set colorscheme from here
 " set termguicolors                     " Sets 256 bit color
                                         " No comment in the following line (?)
@@ -64,7 +64,7 @@ set undofile                            " Sets undofiles for every file
 set incsearch                           " Enables incremental search
 set hlsearch                            " Enables highlights for searches
 set path+=**                            " Allows vim to look through files
-set splitbelow splitright               " Set default split to right
+set splitbelow splitright               " Set default split to right and below
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
