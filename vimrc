@@ -1,6 +1,6 @@
 "#############################################################################
 "
-" My rather basic 
+" My rather basic PC version
 " __      ___                    
 " \ \    / (_)                   
 "  \ \  / / _ _ __ ___  _ __ ___ 
@@ -31,7 +31,11 @@ Plug 'Valloric/YouCompleteMe'           " YouCompleteMe to auto-complete for dif
 
 Plug 'dracula/vim'                      " Dracula theme for texts and background 
 
-" Plugin to have snippets for different languages
+Plug 'SirVer/ultisnips'               " Plugin to have snippets for different languageis
+
+Plug 'honza/vim-snippets'             " Snippets are separated from the engine. Add this if you want them:
+
+Plug 'ervandew/supertab'              " Supertab Plugin to YCM and Ultisnips
 call plug#end()
 
 " To enable YouCompleteMe go to .vim/plugged/youcompleteme 
@@ -80,6 +84,7 @@ let g:NERDTree_WinSize=1                " Sets NERDTree window size as %
 
 let g:airline#extensions#ale#enabled = 1
 
+let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
 
 
 " let g:syntastic_always_populate_loc_list = 1
@@ -106,10 +111,22 @@ let g:lightline = {
       \ },
       \ }
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" Trigger configuration. You need to change this to something else than <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " Remaps
 "-----------------------------------------------------------------------------
-
+" tabnew | pu=execute('map') this shows the list of all the remaps
 let mapleader = " "                     " Sets <leader> key
 
 " => Open terminal inside Vim
