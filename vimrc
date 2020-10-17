@@ -1,6 +1,6 @@
 "#############################################################################
 "
-" My rather basic PC version
+" My rather basic
 " __      ___                    
 " \ \    / (_)                   
 "  \ \  / / _ _ __ ___  _ __ ___ 
@@ -84,9 +84,6 @@ let g:NERDTree_WinSize=1                " Sets NERDTree window size as %
 
 let g:airline#extensions#ale#enabled = 1
 
-let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
-
-
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 0
@@ -124,6 +121,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" Setting up the snippet directory
+let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
 " Remaps
 "-----------------------------------------------------------------------------
 " tabnew | pu=execute('map') this shows the list of all the remaps
