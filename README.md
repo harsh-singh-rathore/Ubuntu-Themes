@@ -11,4 +11,8 @@ zshrc : https://pastebin.ubuntu.com/p/VcbXwjMx2S/
 article : https://dev.to/nicoh/installing-oh-my-zsh-on-ubuntu-362f
 
 neovim on windows : https://www.reddit.com/r/neovim/comments/7l0757/neovim_installation_in_windows_10/
+follow steps but instead of installing in .config do all config work in user/appdata/local/nvim
+
+
+Article installing nvim on windows: https://jakeg.dev/neovim-in-windows/
 
