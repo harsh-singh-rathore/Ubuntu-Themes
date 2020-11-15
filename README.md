@@ -16,3 +16,8 @@ follow steps but instead of installing in .config do all config work in user/app
 
 Article installing nvim on windows: https://jakeg.dev/neovim-in-windows/
 
+Windows Terminal Theme: https://dev.to/anupa/beautify-your-windows-terminal-1la8
+
+Oh My Post Windows terminal: https://github.com/JanDeDobbeleer/oh-my-posh#themes
+
+
