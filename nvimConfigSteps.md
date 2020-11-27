@@ -13,7 +13,8 @@ ________________________________________________________________________________
 sudo apt install neovim
 ```
 <br />
-# Create a .config folder to store the config files
+# Create a .config folder to store the config files<br />
+
 + Make a directory first
 		```
 		mkdir ~/.config/nvim
