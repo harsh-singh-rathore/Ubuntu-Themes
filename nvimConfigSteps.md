@@ -13,7 +13,7 @@ ________________________________________________________________________________
 sudo apt install neovim
 ```
 <br />
-# Create a .config folder to store the config files<br />
+## Create a .config folder to store the config files<br />
 
 + Make a directory first
 		```
@@ -24,20 +24,23 @@ sudo apt install neovim
 		touch ~/.config/nvim/init.vim
 		```
 <br />
-# Install vim-plug a plugin manager for vim plugins
+## Install vim-plug a plugin manager for vim plugins<br />
+
 + This command will install vim-plug to the "~/.config/nvim/autoload/" directory
 		```
 		curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		```
 <br />
-# Create a plugins.vim file
+## Create a plugins.vim file<br />
+
 + We will add the plugins to the "~/.config/nvim/vim-plug/plugins.vim" so that the "init.vim" is not cluttered
 		```
 		mkdir ~/.config/nvim/vim-plug
 		touch ~/.config/nvim/vim-plug/plugins.vim
 		```
 <br />
-# Add plugins
+## Add plugins<br />
+
 +  Now we add the "~/.config/nvim/vim-plug/plugins.vim" to this file
 		```
 " auto-install vim-plug
@@ -60,7 +63,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 call plug#end()
 		```
 <br />
-# Now source the plugins
+## Now source the plugins<br />
+
 + Add this line to init.vim
 		```
 		source $HOME/.config/nvim/vim-plug/plugins.vim
