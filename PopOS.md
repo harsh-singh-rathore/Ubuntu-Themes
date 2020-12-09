@@ -27,3 +27,6 @@ _________________________________________________________
 	+ Mono Green
 	+ Mono Red
 	+ VS Code Dark+
+6. [Make the odd directory hilighting off](https://askubuntu.com/questions/881949/ugly-color-for-directories-in-gnome-terminal)
+	+ source the zshrc after adding this ```export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"```
+

@@ -16,6 +16,7 @@ ZSH_THEME="jonathan"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
