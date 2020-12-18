@@ -124,6 +124,8 @@ au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm al
 
 " You can't stop me
 cmap w!! w !sudo tee %
+" To close certain buffers use :bd 
+" To delete certain buffers use :bw by delete we I mean literally delete
 ```
 + In *init.vim* paste this to source the general settings
 ```
