@@ -17,6 +17,7 @@ ZSH_THEME="jonathan"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -96,5 +97,8 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="sudo vim ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
+alias vimconfig="nvim /home/thecreator-hr/.config/nvim"
+alias nvimconfig="nvim /home/thecreator-hr/.config/nvim"
+alias pip="pip3"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
