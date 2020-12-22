@@ -19,6 +19,7 @@ sudo apt install neovim
 ```
 mkdir ~/.config/nvim
 ```
+## TBH just copy nvim folder from .config and paste it in and also install plug
 + Create a init.vim file to store all the source files <br />
 ```
 touch ~/.config/nvim/init.vim
@@ -45,23 +46,24 @@ touch ~/.config/nvim/vim-plug/plugins.vim
 ```
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-	\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" autocmd VimEnter * PlugInstall
-" autocmd VimEnter * PlugInstall | source $MYVIMRC
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  "autocmd VimEnter * PlugInstall
+  "autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-	" Better Syntax Support
-	Plug 'sheerun/vim-polyglot'
-	" File Explorer
-	Plug 'scrooloose/NERDTree'
-	" Auto pairs for '(' '[' '{'
-	Plug 'jiangmiao/auto-pairs'
-	" For Intellisense COC Stable version of coc
+    " Better Syntax Support
+    Plug 'sheerun/vim-polyglot'
+    " Auto pairs for '(' '[' '{'
+    Plug 'jiangmiao/auto-pairs'
+    " For Intellisense COC Stable version of coc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+    " For status line in vim 
+    Plug 'vim-airline/vim-airline'
+    " For installing themes for airline
+    Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 ```
 
@@ -371,6 +373,44 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Explorer
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+
+nmap <space>e :CocCommand explorer<CR>
+nmap <space>f :CocCommand explorer --preset floating<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 ```
 + Source the config
 ```
@@ -386,7 +426,7 @@ You can also run ```:CocInfo``` to get some useful info
 You can install extensions for languages like this:
 
 ```
-:CocInstall coc-json coc-python coc-snippets coc-vimlsp coc-clangd
+:CocInstall coc-json coc-python coc-snippets coc-vimlsp coc-clangd coc-explorer
 ```
 
 + There are many more extensions to choose from here:
@@ -421,18 +461,36 @@ here you can add [language servers](https://github.com/neoclide/coc.nvim/wiki/La
 and other configuration like autoformat and adding a location for snippets
 ```
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "graphql", "html", "yaml",  "json", "python"],
-
-  // python config
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-
-  "snippets.ultisnips.directories":
-  [
-    "UltiSnips",
-    "~/.config/nvim/utils/snips"
-  ]
-
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "javascript",
+        "graphql",
+        "html",
+        "yaml",
+        "json",
+        "python"
+    ],
+    // python config
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "snippets.ultisnips.directories": [
+        "UltiSnips",
+        "~/.config/nvim/utils/snips"
+    ],
+    "clangd.path": "/home/thecreator-hr/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+    // explorer
+    "explorer.width": 30,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.previewAction.onHover": false,
+    "explorer.keyMappings.global": {
+        "<cr>": [
+            "expandable?",
+            "expand",
+            "open"
+        ],
+        "v": "open:vsplit"
+    }
 }
 ```
 
@@ -510,3 +568,501 @@ rm -rf fonts
 ```
 + Further documentation and repo
 [vim-airliene](https://github.com/vim-airline/vim-airline)  [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+
+# Startify
+
++ add a start screen to nvim
+add this to plug
+```
+Plug 'mhinz/vim-startify'
+```
+
++ create a config file
+```
+touch ~/.config/nvim/plug-config/start-screen.vim
+```
+
++ Sessions
+```
+:SLoad       load a session
+:SSave[!]    save a session
+:SDelete[!]  delete a session
+:SClose      close a session
+```
+
+Add ! to skip the prompt
+
+We should specify where we want Startify to keep our sessions 1
+```
+let g:startify_session_dir = '~/.config/nvim/session'
+```
+
++ Startify Lists
+
+We can specify what shows up in our menu like this:
+
+```
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+```
+
++ Bookmarks
+```
+let g:startify_bookmarks = [
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'z': '~/.zshrc' },
+            \ '~/Blog',
+            \ '~/Code',
+            \ '~/Pics',
+            \ ]
+```
++ Configuration Options
+You can automatically restart a session like this
+```
+let g:startify_session_autoload = 1
+```
+ From the docs:
+
+"If this option is enabled and you start Vim in a directory that contains a Session.vim, that session will be loaded automatically. Otherwise it will be shown as the top entry in the Startify buffer."
+
+Let Startify take care of buffers
+
+```
+let g:startify_session_delete_buffers = 1
+```
+
++ Similar to Vim-rooter
+```
+let g:startify_change_to_vcs_root = 1
+```
++ If you want Unicode
+```
+let g:startify_fortune_use_unicode = 1
+```
++ Automatically Update Sessions
+```
+let g:startify_session_persistence = 1
+```
++ Get rid of empy buffer and quit
+```
+let g:startify_enable_special = 0
+```
+
++ Custom Header 
+```
+let g:startify_custom_header = [
+        \ '    ███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗',
+        \ '    ████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║',
+        \ '    ██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║',
+        \ '    ██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║',
+        \ '    ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║',
+        \ '    ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝',
+        \]
+```
+
++ Source the file
+```
+source $HOME/.config/nvim/plug-config/start-screen.vim
+```
+
+
++ Final file to copy in start-screen.vim 
+```
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+let g:startify_bookmarks = [
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'z': '~/.zshrc' },
+            \ '~/Blog',
+            \ '~/Code',
+            \ '~/Pics',
+            \ ]
+let g:startify_session_autoload = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_fortune_use_unicode = 1
+let g:startify_session_persistence = 1
+let g:startify_enable_special = 0
+let g:startify_custom_header = [
+        \ '    ███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗',
+        \ '    ████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║',
+        \ '    ██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║',
+        \ '    ██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║',
+        \ '    ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║',
+        \ '    ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝',
+        \]
+```
+# Ranger for file exploration 
+
++ install Ranger no need if on windows
+```
+sudo apt install ranger
+```
+
++ Install Ranger devicons(You can now add default_linemode devicons to your rc.conf)
+
+```
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+```
+
++ Install Ueberzug (Linux only) </br>
+Unfortunately Ueberzug only supports linux at the moment as far as I know
+
+    Ubuntu (Note you may experience your images being badly placed this is because pip doesn't have the newest version of ueberzug, if you find this issue please install from source)
+
+```
+pip install ueberzug
+```
+
++ Ranger config file
+make sure you create a ranger config file and at least add the following lines
+Add the following file:
+
+```
+mkdir ~/.config/ranger
+
+touch ~/.config/ranger/rc.conf
+```
++ Add the following to rc.conf
+```
+set preview_images_method ueberzug
+
+default_linemode devicons
+
+set show_hidden true
+```
+
++ Add the plugin
+```
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+```
+
++ Add some config to ```~/.config/nvim/plug-config/rnvimr.vim```
+```
+touch ~/.config/nvim/plug-config/rnvimr.vim
+```
+
++ Add the following to rnvimr.vim
+
+```
+" Make Ranger replace netrw and be the file explorer
+let g:rnvimr_ex_enable = 1
+
+nmap <space>r :RnvimrToggle<CR>
+```
++ source the file
+```
+source $HOME/.config/nvim/plug-config/rnvimr.vim
+```
+
++ sync ranger config
+```
+:RnvimrSync
+```
++ [Alternative](https://github.com/francoiscabrol/ranger.vim)
+
+# GIT Integration
+
++ We will use signify
+```
+touch ~/.config/nvim/plug-config/signify.vim
+```
++ add this to the plugin manager
+```
+Plug 'mhinz/vim-signify'
+```
++ Source this file
+```
+source $HOME/.config/nvim/plug-config/signify.vim
+```
+
++ Configure Signify
+
+Signify will show added, modified, or removed lines
+
+From the documentation:
+```
+SIGNS                                                            *signify-signs*
+
+    `+`     This line was added.
+
+    `!`     This line was modified.
+
+    `_1`    The number of deleted lines below this sign. If the number is larger
+    `99`    than 9, the `_` will be omitted. For numbers larger than 99, `_>`
+    `_>`    will be shown instead.
+
+    `!1`    This line was modified and the lines below were deleted.
+    `!>`    It is a combination of `!` and `_`. If the number is larger than 9,
+          `!>` will be shown instead.
+
+    `‾`     The first line was removed. It's a special case of the `_` sign.
+
+See |g:signify_sign_add| on how to use different signs.
+```
++ You can also stage and unstage hunks
+
+Here's some config for changing the buffer signs
+
+```
+" Change these if you want
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+
+" I find the numbers disctracting
+let g:signify_sign_show_count = 0
+let g:signify_sign_show_text = 1
+
+
+" Jump though hunks
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+nmap <leader>gJ 9999<leader>gJ
+nmap <leader>gK 9999<leader>gk
+
+
+" If you like colors instead
+" highlight SignifySignAdd                  ctermbg=green                guibg=#00ff00
+" highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+" highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
+```
++ Commands
+
+```
+:SignifyToggle
+:SignifyToggleHighlight
+```
++ There are more commands but I prefer the options fugitive and gv provide
+
+# Fugitive/Grubarb
+
++ add this to plug
+```
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+```
++ This plugin is what we'll use for interacting with git
+```
+Note GBrowse only works when Rhubarb is installed
+
+Note Make sure you are using git through ssh not http
+```
+
++ Commands
+```
+:Git add
+
+:Git commit
+
+:Git push
+
+:Git pull
+
+:Git diff
+
+:Git log
+
+:Git blame
+
+Gdiffsplit
+
+GRemove
+
+GBrowse
+```
+
++ GV
+Commands
+
+From the readme: "A git commit browser."
+
+To open commit browser:
+
+```
+:GV
+```
+You can pass git log options to the command, e.g. :GV -S foobar.</br>
++ Other options
+```
+:GV!         # will only list commits that affected the current file
+:GV?         # fills the location list with the revisions of the current file
+:GV          # or :GV? can be used in visual mode to track the changes in the selected lines.
+```
+
++ Mappings
+```
+Mappings
+
+    o or on a commit to display the content of it
+    o or on commits to display the diff in the range
+    O opens a new tab instead
+    gb for :Gbrowse
+    ]] and [[ to move between commits
+    . to start command-line with :Git [CURSOR] SHA à la fugitive
+    q or gq to close
+```
+
++ check repos [signify](https://github.com/mhinz/vim-signify) [fugitive](https://github.com/tpope/vim-fugitive) [rhubarb](https://github.com/tpope/vim-rhubarb) [gv](https://github.com/junegunn/gv.vim)
+
+# VIM Which Key
+
++ To guide what the different keys do
+```
+Plug 'liuchengxu/vim-which-key'
+```
++ Create config file
+```
+touch ~/.config/nvim/keys/which-key.vim
+```
++ Source
+```
+source $HOME/.config/nvim/keys/which-key.vim
+```
++ Which Key
+
+From the github repo:
+
+```"vim-which-key is vim port of emacs-which-key that displays available keybindings in popup."```
+
++ Configure Which Key
+```
+" Map leader to which_key
+nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+
+" Create map to add keys to
+let g:which_key_map =  {}
+" Define a separator
+let g:which_key_sep = '→'
+" set timeoutlen=100
+
+
+" Not a fan of floating windows for this
+let g:which_key_use_floating_win = 0
+
+" Change the colors if you want
+highlight default link WhichKey          Operator
+highlight default link WhichKeySeperator DiffAdded
+highlight default link WhichKeyGroup     Identifier
+highlight default link WhichKeyDesc      Function
+
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+" Single mappings
+let g:which_key_map['/'] = [ '<Plug>NERDCommenterToggle'  , 'comment' ]
+let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'explorer' ]
+let g:which_key_map['f'] = [ ':Files'                     , 'search files' ]
+let g:which_key_map['h'] = [ '<C-W>s'                     , 'split below']
+let g:which_key_map['r'] = [ ':Ranger'                    , 'ranger' ]
+let g:which_key_map['S'] = [ ':Startify'                  , 'start screen' ]
+let g:which_key_map['T'] = [ ':Rg'                        , 'search text' ]
+let g:which_key_map['v'] = [ '<C-W>v'                     , 'split right']
+let g:which_key_map['z'] = [ 'Goyo'                       , 'zen' ]
+
+" s is for search
+let g:which_key_map.s = {
+      \ 'name' : '+search' ,
+      \ '/' : [':History/'     , 'history'],
+      \ ';' : [':Commands'     , 'commands'],
+      \ 'a' : [':Ag'           , 'text Ag'],
+      \ 'b' : [':BLines'       , 'current buffer'],
+      \ 'B' : [':Buffers'      , 'open buffers'],
+      \ 'c' : [':Commits'      , 'commits'],
+      \ 'C' : [':BCommits'     , 'buffer commits'],
+      \ 'f' : [':Files'        , 'files'],
+      \ 'g' : [':GFiles'       , 'git files'],
+      \ 'G' : [':GFiles?'      , 'modified git files'],
+      \ 'h' : [':History'      , 'file history'],
+      \ 'H' : [':History:'     , 'command history'],
+      \ 'l' : [':Lines'        , 'lines'] ,
+      \ 'm' : [':Marks'        , 'marks'] ,
+      \ 'M' : [':Maps'         , 'normal maps'] ,
+      \ 'p' : [':Helptags'     , 'help tags'] ,
+      \ 'P' : [':Tags'         , 'project tags'],
+      \ 's' : [':Snippets'     , 'snippets'],
+      \ 'S' : [':Colors'       , 'color schemes'],
+      \ 't' : [':Rg'           , 'text Rg'],
+      \ 'T' : [':BTags'        , 'buffer tags'],
+      \ 'w' : [':Windows'      , 'search windows'],
+      \ 'y' : [':Filetypes'    , 'file types'],
+      \ 'z' : [':FZF'          , 'FZF'],
+      \ }
+
+" Register which key map
+call which_key#register('<Space>', "g:which_key_map")
+```
+# Snippets
+
++ snippets
+```
+Plug 'honza/vim-snippets'
+```
+
++ make a souce file
+```
+touch ~/.config/nvim/plug-config/snippets-collection.vim
+```
++ add the configuration to source file
+```
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+```
+
++ now source the file in init.vim
+```
+source $HOME/.config/nvim/plug-config/snippets-collection.vim
+```
++ Add your own snippets
+
+Edit coc-settings.json and add the following
+```
+"snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+```
++ After that you can add a file like this:
+```
+mkdir ~/.config/nvim/snips
+```
++ Now to make a file that contains the snippets 
+```
+touch ~/.config/nvim/snips/{fileformat}.snippets
+```
++ Commands
+
+You'll be able to notice it's a snippet from the ~ character
+
+Auto complete should feel very familiar, refer to the earlier bindings you set.
+
+To list all snippets for a current file:
+```
+:CocList snippets
+
+:CocCommand snippets.editSnippets
+
+:CocCommand snippets.openSnippetFiles
+```
