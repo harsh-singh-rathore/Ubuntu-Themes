@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/thecreator-hr/.oh-my-zsh"
+export ZSH="/home/thecreator/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -98,7 +98,8 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias zshconfig="nvim ~/.zshrc"
-alias vimconfig="nvim /home/thecreator-hr/.config/nvim"
-alias nvimconfig="nvim /home/thecreator-hr/.config/nvim"
+alias vimconfig="nvim /home/thecreator/.config/nvim"
+alias nvimconfig="nvim /home/thecreator/.config/nvim"
 alias pip="pip3"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ohmyzsh="mate ~/.oh-my-zsh"
+alias python="python3"
